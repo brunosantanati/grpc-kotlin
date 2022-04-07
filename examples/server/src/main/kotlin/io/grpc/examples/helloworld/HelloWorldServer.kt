@@ -49,6 +49,11 @@ class HelloWorldServer(private val port: Int) {
         override suspend fun sayHello(request: HelloRequest) = helloReply {
             message = "Hello ${request.name}"
         }
+
+        override suspend fun sayHelloAgain(request: HelloRequest) = HelloReply
+            .newBuilder()
+            .setMessage("Hello again ${request.name}")
+            .build()
     }
 }
 

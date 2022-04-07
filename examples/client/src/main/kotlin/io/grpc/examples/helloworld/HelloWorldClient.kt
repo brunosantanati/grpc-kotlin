@@ -26,9 +26,11 @@ class HelloWorldClient(private val channel: ManagedChannel) : Closeable {
     private val stub: GreeterCoroutineStub = GreeterCoroutineStub(channel)
 
     suspend fun greet(name: String) {
-        val request = helloRequest { this.name = name }
+        val request = HelloRequest.newBuilder().setName(name).build()
         val response = stub.sayHello(request)
         println("Received: ${response.message}")
+        val againResponse = stub.sayHelloAgain(request)
+        println("Received: ${againResponse.message}")
     }
 
     override fun close() {
